@@ -14,5 +14,13 @@ export const User = objectType({
           .links();
       },
     });
+    t.nonNull.list.nonNull.field("votes", {
+      type: "link",
+      resolve(parent, args, context) {
+        return context.prisma.user
+          .findUnique({ where: { id: parent.id } })
+          .votes();
+      },
+    });
   },
 });

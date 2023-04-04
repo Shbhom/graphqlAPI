@@ -39,6 +39,10 @@ export interface NexusGenObjects {
     id: number; // Int!
     name: string; // String!
   }
+  Vote: { // root type
+    link: NexusGenRootTypes['link']; // link!
+    user: NexusGenRootTypes['User']; // User!
+  }
   link: { // root type
     description: string; // String!
     id: number; // Int!
@@ -67,6 +71,7 @@ export interface NexusGenFieldTypes {
     post: NexusGenRootTypes['link']; // link!
     signup: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     updateLink: NexusGenRootTypes['link']; // link!
+    vote: NexusGenRootTypes['Vote'] | null; // Vote
   }
   Query: { // field return type
     feed: NexusGenRootTypes['link'][]; // [link!]!
@@ -77,12 +82,18 @@ export interface NexusGenFieldTypes {
     email: string; // String!
     id: number; // Int!
     name: string; // String!
+    votes: NexusGenRootTypes['link'][]; // [link!]!
+  }
+  Vote: { // field return type
+    link: NexusGenRootTypes['link']; // link!
+    user: NexusGenRootTypes['User']; // User!
   }
   link: { // field return type
     description: string; // String!
     id: number; // Int!
     postedBy: NexusGenRootTypes['User'] | null; // User
     url: string; // String!
+    voters: NexusGenRootTypes['User'][]; // [User!]!
   }
 }
 
@@ -97,6 +108,7 @@ export interface NexusGenFieldTypeNames {
     post: 'link'
     signup: 'AuthPayload'
     updateLink: 'link'
+    vote: 'Vote'
   }
   Query: { // field return type name
     feed: 'link'
@@ -107,12 +119,18 @@ export interface NexusGenFieldTypeNames {
     email: 'String'
     id: 'Int'
     name: 'String'
+    votes: 'link'
+  }
+  Vote: { // field return type name
+    link: 'link'
+    user: 'User'
   }
   link: { // field return type name
     description: 'String'
     id: 'Int'
     postedBy: 'User'
     url: 'String'
+    voters: 'User'
   }
 }
 
@@ -138,6 +156,9 @@ export interface NexusGenArgTypes {
       description?: string | null; // String
       id?: number | null; // Int
       url?: string | null; // String
+    }
+    vote: { // args
+      LinkId: number; // Int!
     }
   }
   Query: {

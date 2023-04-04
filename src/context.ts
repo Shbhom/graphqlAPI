@@ -9,9 +9,11 @@ export interface Context {
 }
 
 export const context = ({ req }: { req: Request }): Context => {
+  //here the parameter is req which is of type req which is of type Request from express
   const token =
     req && req.headers.authorization
       ? decodeAuthHeader(req.headers.authorization)
       : null;
+  // console.log(token);
   return { prisma, userId: token?.UserId };
 };
